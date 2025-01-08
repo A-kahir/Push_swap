@@ -10,10 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
-#include <stdio.h>
-#include <libc.h>
-
+#include "ft_push_swab.h"
 
 void ft_SAB(int *sa, int *sb)
 {
@@ -43,21 +40,26 @@ void ft_SAB(int *sa, int *sb)
 	}
 }
 
-// void	ft_PAB(int *pa, int *pb)
-// {
-// 	int *temp;
+void    ft_PAB(int *pa, int *pb)
+{
+	int size_a;
+	int size_b;
 
-// 	if (pa && pb)
-// 	{
-// 		temp = pb[1];
-// 		pa[]
-// 	}
-// }
+	size_a = 0;
+	while (pb[size_a] != '\0')
+	{
+		size_a++;
+	}
+	printf("size_a ==> %d\n", size_a);
+}
 
-// int main()
-// {
-// 	int pa[] = {4, 2, 5, 3};
-// 	int pb[] = {1, 6, 7};
+int main()
+{
+	int pa[] = {4, 6, 7, 8};
+	int pb[] = {2, 6}; //{1, 5, 6, 7, 8} , {6};
 
-// 	ft_PAB();
-// }
+	ft_PAB(pa, pb);
+
+	printf("%d\n", pa);
+	printf("%d", pb);
+}
