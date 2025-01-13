@@ -3,74 +3,120 @@
 /*                                                        :::      ::::::::   */
 /*   funcs_rules1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akahir <akahir@student.42.fr>              +#+  +:+       +#+        */
+/*   By: akahir <aymanekahir036@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 18:23:37 by akahir            #+#    #+#             */
-/*   Updated: 2025/01/09 20:50:22 by akahir           ###   ########.fr       */
+/*   Updated: 2025/01/11 16:47:38 by akahir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_push_swap.h"
 
-void	ft_SAB(int *sa, int *sb, int size_a)
+void    swap(int *stack, int size, const char *rule)
 {
-	int temp_a;
-	int temp_b;
+    int tmp;
 
-	if (sa && sb == 0)
-	{
-		temp_a = sa[0];
-		sa[0] = sa[1];
-		sa[1] = temp_a;
+    if (size > 1)
+    {
+        tmp = stack[0];
+        stack[0] = stack[1];
+        stack[1] = tmp;
+    }
+	if (rule = "sa")
 		write(1, "sa\n", 3);
-	}
-	if (sb && sa == 0)
-	{
-		temp_b = sb[0];
-		sb[0] = sb[1];
-		sb[1] = temp_b;
+	else if (rule = "sb")
 		write(1, "sb\n", 3);
-	}
-	if (sa && sb)
-	{
-		temp_a = sa[0];
-		sa[0] = sa[1];
-		sa[1] = temp_a;
-		temp_b = sb[0];
-		sb[0] = sb[1];
-		sb[1] = temp_b;
-		write(1, "ss\n", 3);
-	}
 }
 
-void    ft_PAB(int *pa, int *pb, int size_a, int size_b)
+void    swap_both(int *stack_a, int *stack_b, int size_a, int size_b)
 {
-	
+    swap(stack_a, size_a, NULL);
+    swap(stack_b, size_b, NULL);
+	write(1, "ss\n", 3);
 }
-void	ft_RAB(int *ra, int *rb, int size_a, int size_b)
-{
-	int temp;
-	int i;
 
-	if (ra && size_a > 1)
-	{
-		temp = ra[0];
-		i = 0;
-		while (++i < size_a)
-			ra[i - 1] = ra[i];
-		ra[size_a - 1] = temp;
+void    push(int *stack_from, int *stack_to, int *size_from, int *size_to, const char *rule)
+{
+    int i;
+    
+    if (*size_from > 0)
+    {
+        i = *size_to;
+        while (i > 0)
+        {
+            stack_to[i] = stack_to[i - 1];
+            i--;
+        }
+        stack_to[0] = stack_from[0];
+        i = 0;
+        while (i < *size_from - 1)
+        {
+            stack_from[i] = stack_from[i + 1];
+            i++;
+        }
+        (*size_to)++;
+        (*size_from)--;
+    }
+	if (rule = "pa")
+		write(1, "pa\n", 3);
+	else if (rule = "pb")
+		write(1, "pb\n", 3);
+}
+
+void    rotate(int *stack, int size, const char *rule)
+{
+    int tmp;
+    int i;
+
+    if (size > 1)
+    {
+        tmp = stack[0];
+        i = 0;
+        while (i < size - 1)
+        {
+            stack[i] = stack[i + 1];
+            i++;
+        }
+        stack[size - 1] = tmp;
+    }
+	if (rule = "ra")
 		write(1, "ra\n", 3);
-	}
-	if (rb && size_b > 1)
-	{
-		temp = rb[0];
-		i = 0;
-		while (++i < size_b)
-			rb[i - 1] = rb[i];
-		rb[size_b - 1] = temp;
+	else if (rule = "rb")
 		write(1, "rb\n", 3);
-	}
-	if (ra && rb)
-		write(1, "rr\n", 3);
 }
 
+void    rotate_both(int *stack_a, int *stack_b, int size_a, int size_b)
+{
+    rotate(stack_a, size_a, NULL);
+    rotate(stack_b, size_b, NULL);
+	write(1, "rr\n", 3);
+}
+
+void    reverse_rotate(int *stack, int size, const char *rule)
+{
+    int tmp;
+    int i;
+
+    if (size > 1)
+    {
+        tmp = stack[size - 1];
+        i = size - 1;
+        while (i > 0)
+        {
+            stack[i] = stack[i - 1];
+            i--;
+        }
+        stack[0] = tmp;
+    }
+	if (rule = "rra")
+		write(1, "rra\n", 4);
+	else if (rule = "rrb")
+		write(1, "rrb\n", 4);
+}
+
+void    reverse_rotate_both(int *stack_a, int *stack_b, int size_a, int size_b)
+{
+    reverse_rotate(stack_a, size_a, NULL);
+    reverse_rotate(stack_b, size_b, NULL);
+	write(1, "rrr\n", 4);
+}
