@@ -12,38 +12,54 @@
 
 #include "ft_push_swap.h"
 
+int find_best_position(int *stack_a, int size_a, int value)
+{
+    int pos = 0;
+    int i = 0;
+
+    while (i < size_a)
+    {
+        if (value < stack_a[i] && 
+            (i == 0 || value > stack_a[i - 1]))
+        {
+            pos = i;
+            break;
+        }
+        i++;
+    }
+    if (i == size_a && value > stack_a[size_a - 1])
+        pos = size_a;
+    return pos;
+}
+
 void    push_swap(int *stack_a, int *stack_b, int size_a, int size_b)
 {
     int i;
     int min;
-    int min_pos;
+    int pos_min;
     int steps;
     int half;
+    int best_pos;
 
     while (size_a > 3)
     {
-        // Find minimum
         i = 0;
         min = stack_a[0];
-        min_pos = 0;
+        pos_min = 0;
         while (i < size_a)
         {
             if (stack_a[i] < min)
             {
                 min = stack_a[i];
-                min_pos = i;
+                pos_min = i;
             }
             i++;
         }
-
-        // Calculate steps and half
         steps = 0;
         half = size_a / 2;
-
-        // Move minimum to top using rotate or reverse_rotate
-        if (min_pos <= half)
+        if (pos_min <= half)
         {
-            while (steps < min_pos)
+            while (steps < pos_min)
             {
                 rotate(stack_a, size_a, "ra");
                 steps++;
@@ -51,7 +67,7 @@ void    push_swap(int *stack_a, int *stack_b, int size_a, int size_b)
         }
         else
         {
-            while (steps < size_a - min_pos)
+            while (steps < size_a - pos_min)
             {
                 reverse_rotate(stack_a, size_a, "rra");
                 steps++;
@@ -59,8 +75,6 @@ void    push_swap(int *stack_a, int *stack_b, int size_a, int size_b)
         }
         push(stack_a, stack_b, &size_a, &size_b, "pb");
     }
-
-    // Sort remaining 3 elements in stack_a
     if (size_a == 2)
     {
         if (stack_a[0] > stack_a[1])
@@ -85,28 +99,21 @@ void    push_swap(int *stack_a, int *stack_b, int size_a, int size_b)
         else if (stack_a[0] < stack_a[1] && stack_a[1] > stack_a[2] && stack_a[0] > stack_a[2])
             reverse_rotate(stack_a, size_a, "rra");
     }
-
-    // Push all elements back from B to A
     while (size_b > 0)
     {
+        best_pos = find_best_position(stack_a, size_a, stack_b[0]);
+        steps = 0;
+
+        if (best_pos <= size_a / 2)
+        {
+            while (steps++ < best_pos)
+                rotate(stack_a, size_a, "ra");
+        }
+        else
+        {
+            while (steps++ < size_a - best_pos)
+                reverse_rotate(stack_a, size_a, "rra");
+        }
         push(stack_b, stack_a, &size_b, &size_a, "pa");
     }
-    printf("Stack A:\n");
-    for (int k = 0; k < size_a; k++)
-        printf("stack_a[%d] = %d\n", k, stack_a[k]);
-        
-    printf("Stack B:\n");
-    for (int l = 0; l < size_b; l++) // Corrected loop for stack_b
-        printf("stack_b[%d] = %d\n", l, stack_b[l]);
 }
-
-
-/*
-    printf("Stack A:\n");
-    for (int k = 0; k < size_a; k++)
-        printf("stack_a[%d] = %d\n", k, stack_a[k]);
-        
-    printf("Stack B:\n");
-    for (int l = 0; l < size_b; l++) // Corrected loop for stack_b
-        printf("stack_b[%d] = %d\n", l, stack_b[l]);
-*/

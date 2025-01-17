@@ -47,6 +47,15 @@ int	main(int argc, char **argv)
     
 	push_swap(stack_a, stack_b, size_a, size_a);
 	
-    // free(stack_a);
-    // free(stack_b);
+	printf("Before operation (size_a: %d, size_b: %d)\n", size_a, size_a);
+    printf("Stack A:\n");
+    int j = 0;
+    while (j < size_a)
+    {
+        printf("stack_A[%d]=> %d\n", j, stack_a[j]);
+        j++;
+    }
+
+    free(stack_a);
+    free(stack_b);
 }
