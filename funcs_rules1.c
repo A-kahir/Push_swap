@@ -6,7 +6,7 @@
 /*   By: akahir <akahir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 18:23:37 by akahir            #+#    #+#             */
-/*   Updated: 2025/01/17 14:36:29 by akahir           ###   ########.fr       */
+/*   Updated: 2025/01/17 20:01:41 by akahir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,14 @@ void    push(int *stack_from, int *stack_to, int *size_from, int *size_to, const
             stack_from[i] = stack_from[i + 1];
             i++;
         }
+        stack_from[*size_from - 1] = 0;
         (*size_to)++;
         (*size_from)--;
+	    if (ft_check(rule, "pa"))
+		    write(1, "pa\n", 3);
+	    else if (ft_check(rule, "pb"))
+	    	write(1, "pb\n", 3);
     }
-	if (ft_check(rule, "pa"))
-		write(1, "pa\n", 3);
-	else if (ft_check(rule, "pb"))
-		write(1, "pb\n", 3);
 }
 
 void    rotate(int *stack, int size, const char *rule)
@@ -93,11 +94,11 @@ void    rotate(int *stack, int size, const char *rule)
             i++;
         }
         stack[size - 1] = tmp;
+	    if (ft_check(rule, "ra"))
+		    write(1, "ra\n", 3);
+	    else if (ft_check(rule, "rb"))
+		    write(1, "rb\n", 3);
     }
-	if (ft_check(rule, "ra"))
-		write(1, "ra\n", 3);
-	else if (ft_check(rule, "rb"))
-		write(1, "rb\n", 3);
 }
 
 void    rotate_both(int *stack_a, int *stack_b, int size_a, int size_b)
@@ -122,11 +123,11 @@ void    reverse_rotate(int *stack, int size, const char *rule)
             i--;
         }
         stack[0] = tmp;
+	    if (ft_check(rule, "rra"))
+		    write(1, "rra\n", 4);
+	    else if (ft_check(rule, "rrb"))
+		    write(1, "rrb\n", 4);
     }
-	if (ft_check(rule, "rra"))
-		write(1, "rra\n", 4);
-	else if (ft_check(rule, "rrb"))
-		write(1, "rrb\n", 4);
 }
 
 void    reverse_rotate_both(int *stack_a, int *stack_b, int size_a, int size_b)

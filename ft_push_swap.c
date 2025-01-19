@@ -12,26 +12,6 @@
 
 #include "ft_push_swap.h"
 
-int find_best_position(int *stack_a, int size_a, int value)
-{
-    int pos = 0;
-    int i = 0;
-
-    while (i < size_a)
-    {
-        if (value < stack_a[i] && 
-            (i == 0 || value > stack_a[i - 1]))
-        {
-            pos = i;
-            break;
-        }
-        i++;
-    }
-    if (i == size_a && value > stack_a[size_a - 1])
-        pos = size_a;
-    return pos;
-}
-
 void    push_swap(int *stack_a, int *stack_b, int size_a, int size_b)
 {
     int i;
@@ -39,7 +19,6 @@ void    push_swap(int *stack_a, int *stack_b, int size_a, int size_b)
     int pos_min;
     int steps;
     int half;
-    int best_pos;
 
     while (size_a > 3)
     {
@@ -101,19 +80,6 @@ void    push_swap(int *stack_a, int *stack_b, int size_a, int size_b)
     }
     while (size_b > 0)
     {
-        best_pos = find_best_position(stack_a, size_a, stack_b[0]);
-        steps = 0;
-
-        if (best_pos <= size_a / 2)
-        {
-            while (steps++ < best_pos)
-                rotate(stack_a, size_a, "ra");
-        }
-        else
-        {
-            while (steps++ < size_a - best_pos)
-                reverse_rotate(stack_a, size_a, "rra");
-        }
         push(stack_b, stack_a, &size_b, &size_a, "pa");
     }
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_push_swap.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akahir <aymanekahir036@gmail.com>          +#+  +:+       +#+        */
+/*   By: akahir <akahir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 18:23:52 by akahir            #+#    #+#             */
-/*   Updated: 2025/01/11 16:51:21 by akahir           ###   ########.fr       */
+/*   Updated: 2025/01/19 18:43:05 by akahir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,7 @@ void    rotate_both(int *stack_a, int *stack_b, int size_a, int size_b);
 void    reverse_rotate(int *stack, int size, const char *rule);
 void    reverse_rotate_both(int *stack_a, int *stack_b, int size_a, int size_b);
 // helper function:
-
+int ft_conditions(int *stack_a, int size_a);
+char	**ft_split(const char *s, char c);
+int	ft_atoi(const char *str);
 #endif
