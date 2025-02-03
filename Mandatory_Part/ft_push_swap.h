@@ -45,6 +45,7 @@ int	ft_double_nb(t_list *stack_a);
 void    ft_if_3(t_list *stack_a, int *count);
 void    ft_if_4(t_list *stack_a, t_list *stack_b, int *count);
 void    ft_if_5(t_list *stack_a, t_list *stack_b, int *count);
+int spaces_and_tabs(char *arg);
 
 //helper functions:
 void    free_stack(t_list *stack);

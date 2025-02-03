@@ -46,3 +46,24 @@ int ft_double_nb(t_list *stack_a)
     }
     return (0);
 }
+int spaces_and_tabs(char *arg)
+{
+    char *start = arg;
+    char *end;
+    char *dest = arg;
+
+    while (*start == ' ' || *start == '\t')
+        start++;
+    if (*start == '\0') 
+        return (0);
+    end = start;
+    while (*end)
+        end++;
+    end--;
+    while (end > start && (*end == ' ' || *end == '\t'))
+        end--;
+    while (start <= end)
+        *dest++ = *start++;
+    *dest = '\0';
+    return (1);
+}

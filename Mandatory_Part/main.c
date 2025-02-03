@@ -62,18 +62,15 @@ static t_list *process_arg(char *arg, t_list *stack)
     int     i;
     t_list  *new_stack;
 
-	while (*arg == ' ' || *arg == '\t')
-        arg++;
-    if (!arg || *arg == '\0')
+    if (spaces_and_tabs(arg) == 0)
+    {
         return (NULL);
+    }
     split = ft_split(arg, ' ');
     if (!split)
         return (NULL);
     if (!split[0])
-    {
-        free(split);
-        return (NULL);
-    }
+        return (free(split), NULL);
     i = 0;
     while (split[i])
     {

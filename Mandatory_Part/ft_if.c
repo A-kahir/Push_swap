@@ -74,15 +74,12 @@ void ft_if_4(t_list *stack_a, t_list *stack_b, int *count)
     push(&stack_b, &stack_a, "pa", count);
 }
 
-
-
 void ft_if_5(t_list *stack_a, t_list *stack_b, int *count)
 {
     int a;
     int b;
     int c;
     int d;
-    int e;
     
     if (stack_a->next->next->next->next->next != NULL)
         return;
@@ -90,7 +87,8 @@ void ft_if_5(t_list *stack_a, t_list *stack_b, int *count)
     b = *(int *)(stack_a->next->content);
     c = *(int *)(stack_a->next->next->content);
     d = *(int *)(stack_a->next->next->next->content);
-    e = *(int *)(stack_a->next->next->next->next->content);
+    // e = *(int *)(stack_a->next->next->next->next->content);
+    
     if (a == 0)
         push(&stack_a, &stack_b, "pb", count);
     else if (b == 0)
@@ -110,6 +108,7 @@ void ft_if_5(t_list *stack_a, t_list *stack_b, int *count)
         reverse_rotate(&stack_a, "rra", count);
         push(&stack_a, &stack_b, "pb", count);
     }
+    
     if (a == 1)
         push(&stack_a, &stack_b, "pb", count);
     else if (b == 1)
@@ -129,11 +128,12 @@ void ft_if_5(t_list *stack_a, t_list *stack_b, int *count)
         reverse_rotate(&stack_a, "rra", count);
         push(&stack_a, &stack_b, "pb", count);
     }
+    
     ft_if_3(stack_a, count);
+    
     if (stack_b && stack_b->next && *(int *)(stack_b->content) > *(int *)(stack_b->next->content))
         swap(&stack_b, "sb", count);
+    
     push(&stack_b, &stack_a, "pa", count);
     push(&stack_b, &stack_a, "pa", count);
 }
-
-
