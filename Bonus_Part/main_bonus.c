@@ -6,7 +6,7 @@
 /*   By: akahir <akahir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:38:52 by akahir            #+#    #+#             */
-/*   Updated: 2025/02/03 18:29:18 by akahir           ###   ########.fr       */
+/*   Updated: 2025/02/03 21:41:42 by akahir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,22 +53,22 @@ void process_commands(t_list **stack_a, t_list **stack_b, int *count)
             free(line);
             continue;
         }
-        if (ft_strcmp(line, "sa\n", 3) == 0)
-            swap(stack_a, "sa", count);
-        else if (ft_strcmp(line, "sb\n", 3) == 0)
-            swap(stack_b, "sb", count);
-        else if (ft_strcmp(line, "pa\n", 3) == 0)
-            push(stack_a, stack_b, "pa", count);
-        else if (ft_strcmp(line, "pb\n", 3) == 0)
-            push(stack_a, stack_b, "pb", count);
-        else if (ft_strcmp(line, "ra\n", 3) == 0)
-            rotate(stack_a, "ra", count);
-        else if (ft_strcmp(line, "rb\n", 3) == 0)
-            rotate(stack_b, "rb", count);
-        else if (ft_strcmp(line, "rra\n", 4) == 0)
-            reverse_rotate(stack_a, "rra", count);
-        else if (ft_strcmp(line, "rrb\n", 4) == 0)
-            reverse_rotate(stack_b, "rrb", count);
+        if (ft_strcmp(line, "sa\n") == 0)
+            swap(stack_a, count);
+        else if (ft_strcmp(line, "sb\n") == 0)
+            swap(stack_b, count);
+        else if (ft_strcmp(line, "pa\n") == 0)
+            push(stack_a, stack_b, count);
+        else if (ft_strcmp(line, "pb\n") == 0)
+            push(stack_a, stack_b, count);
+        else if (ft_strcmp(line, "ra\n") == 0)
+            rotate(stack_a, count);
+        else if (ft_strcmp(line, "rb\n") == 0)
+            rotate(stack_b, count);
+        else if (ft_strcmp(line, "rra\n") == 0)
+            reverse_rotate(stack_a, count);
+        else if (ft_strcmp(line, "rrb\n") == 0)
+            reverse_rotate(stack_b, count);
         else
         {
             write(1, "Error\n", 6);
@@ -81,13 +81,31 @@ void process_commands(t_list **stack_a, t_list **stack_b, int *count)
 
 int main(int argc, char **argv)
 {
+    char **split;
     t_list *stack_a = NULL;
     t_list *stack_b = NULL;
     int i;
     int count = 0;
 
     if (argc < 2)
-        return (write(1, "Error\n", 6), 1);
+        return (1);
+    i = 0;
+    while (argv[i] != NULL)
+    {
+        split = ft_split(argv[i], ' ');
+        i++;
+    }
+    i = 0;
+    while (split[i])
+    {
+        if ((is_valid_number(split[i]) == 0))
+        {
+            while (split[i])
+                free(split[i++]);
+            return (write(1, "Error\n", 6), free(split), 1);
+        }
+        i++;
+    }
     i = 1;
     while (i < argc)
     {

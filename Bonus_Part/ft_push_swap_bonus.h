@@ -6,7 +6,7 @@
 /*   By: akahir <akahir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:38:28 by akahir            #+#    #+#             */
-/*   Updated: 2025/02/03 18:29:45 by akahir           ###   ########.fr       */
+/*   Updated: 2025/02/03 21:40:20 by akahir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ int main(int argc, char **argv);
 void ft_push_swap(t_list **stack_a, t_list **stack_b, int *count);
 
 //rules functions:
-void	swap(t_list **stack, const char *rule, int *count);
+void	swap(t_list **stack,int *count);
 void	swap_both(t_list **stack_a, t_list **stack_b, int *count);
-void	push(t_list **from, t_list **to, const char *rule, int *count);
-void	rotate(t_list **stack, const char *rule, int *count);
+void	push(t_list **from, t_list **to,int *count);
+void	rotate(t_list **stack,int *count);
 void	rotate_both(t_list **stack_a, t_list **stack_b, int *count);
-void	reverse_rotate(t_list **stack, const char *rule, int *count);
+void	reverse_rotate(t_list **stack,int *count);
 void	reverse_rotate_both(t_list **stack_a, t_list **stack_b, int *count);
 
 //conditions functions:

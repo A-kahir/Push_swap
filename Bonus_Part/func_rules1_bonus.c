@@ -6,13 +6,13 @@
 /*   By: akahir <akahir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:38:47 by akahir            #+#    #+#             */
-/*   Updated: 2025/02/03 15:42:35 by akahir           ###   ########.fr       */
+/*   Updated: 2025/02/03 21:40:00 by akahir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_push_swap_bonus.h"
 
-void swap(t_list **stack, const char *rule, int *count)
+void swap(t_list **stack, int *count)
 {
     t_list *first;
     t_list *second;
@@ -25,20 +25,17 @@ void swap(t_list **stack, const char *rule, int *count)
     first->next = second->next;
     second->next = first;
     *stack = second;
-    write(1, rule, ft_strlen(rule));
-    write(1, "\n", 1);
     (*count)++;
 }
 
 void swap_both(t_list **stack_a, t_list **stack_b, int *count)
 {
-    swap(stack_a, "sa", count);
-    swap(stack_b, "sb", count);
-    write(1, "ss\n", 3);
+    swap(stack_a, count);
+    swap(stack_b,count);
     (*count)++;
 }
 
-void push(t_list **from, t_list **to, const char *rule, int *count)
+void push(t_list **from, t_list **to, int *count)
 {
     t_list *temp;
 
@@ -48,12 +45,10 @@ void push(t_list **from, t_list **to, const char *rule, int *count)
     *from = (*from)->next;
     temp->next = *to;
     *to = temp;
-    write(1, rule, ft_strlen(rule));
-    write(1, "\n", 1);
     (*count)++;
 }
 
-void rotate(t_list **stack, const char *rule, int *count)
+void rotate(t_list **stack, int *count)
 {
     t_list *first;
     t_list *last;
@@ -67,20 +62,17 @@ void rotate(t_list **stack, const char *rule, int *count)
     while (last->next != NULL)
         last = last->next;
     last->next = first;
-    write(1, rule, ft_strlen(rule));
-    write(1, "\n", 1);
     (*count)++;
 }
 
 void rotate_both(t_list **stack_a, t_list **stack_b, int *count)
 {
-    rotate(stack_a, "ra", count);
-    rotate(stack_b, "rb", count);
-    write(1, "rr\n", 3);
+    rotate(stack_a, count);
+    rotate(stack_b, count);
     (*count)++;
 }
 
-void reverse_rotate(t_list **stack, const char *rule, int *count)
+void reverse_rotate(t_list **stack, int *count)
 {
     t_list *last;
     t_list *second_last;
@@ -94,15 +86,12 @@ void reverse_rotate(t_list **stack, const char *rule, int *count)
     second_last->next = NULL;
     last->next = *stack;
     *stack = last;
-    write(1, rule, ft_strlen(rule));
-    write(1, "\n", 1);
     (*count)++;
 }
 
 void reverse_rotate_both(t_list **stack_a, t_list **stack_b, int *count)
 {
-    reverse_rotate(stack_a, "rra", count);
-    reverse_rotate(stack_b, "rrb", count);
-    write(1, "rrr\n", 4);
+    reverse_rotate(stack_a, count);
+    reverse_rotate(stack_b, count);
     (*count)++;
 }

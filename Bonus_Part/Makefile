@@ -3,7 +3,7 @@ CFLAGS = -Wall -Wextra -Werror
 
 SRCS = main_bonus.c func_rules1_bonus.c ft_free_stack_bonus.c ft_atoi_bonus.c \
 		get_next_line_bonus.c ft_strlen_bonus.c ft_strcmp_bonus.c \
-		get_next_line_utils_bonus.c ft_conditions_bonus.c 
+		get_next_line_utils_bonus.c ft_conditions_bonus.c ft_split_bonus.c 
 
 OBJS = $(SRCS:.c=.o)
 

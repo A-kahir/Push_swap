@@ -6,7 +6,7 @@
 /*   By: akahir <akahir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 18:19:19 by akahir            #+#    #+#             */
-/*   Updated: 2025/02/03 15:16:52 by akahir           ###   ########.fr       */
+/*   Updated: 2025/02/03 21:23:26 by akahir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,23 +55,34 @@ static t_list *continue_process_arg(char **split, t_list *new_stack)
     return (new_stack);
 }
 
+
 static t_list *process_arg(char *arg, t_list *stack)
 {
     char    **split;
     int     i;
     t_list  *new_stack;
 
+	while (*arg == ' ' || *arg == '\t')
+        arg++;
+    if (!arg || *arg == '\0')
+        return (NULL);
     split = ft_split(arg, ' ');
     if (!split)
         return (NULL);
+    if (!split[0])
+    {
+        free(split);
+        return (NULL);
+    }
     i = 0;
     while (split[i])
     {
-        if (!is_valid_number(split[i]))
+        if ((is_valid_number(split[i]) == 0))
         {
             while (split[i])
                 free(split[i++]);
-            return (free(split), NULL);
+            free(split);
+            return (NULL);
         }
         i++;
     }
@@ -80,6 +91,7 @@ static t_list *process_arg(char *arg, t_list *stack)
     while (split[i])
         free(split[i++]);
     free(split);
+
     return (new_stack);
 }
 
@@ -110,7 +122,7 @@ int main(int argc, char **argv)
     int count;
 
     if (argc < 2)
-        return (write(1, "Error\n", 6), 1);
+        return (1);
     stack_a = parse_arguments(argc, argv);
     if (!stack_a)
         return (write(1, "Error\n", 6), 1);
@@ -119,12 +131,11 @@ int main(int argc, char **argv)
     stack_b = NULL;
     count = 0;
     ft_push_swap(&stack_a, &stack_b, &count);
-    
-    while (stack_a)
-    {
-        printf("stack_a->content %d ==> index[%d]\n", *(stack_a->content), stack_a->index);
-        stack_a = stack_a->next;
-    }
-    printf("count ==> %d", count);
+    // while (stack_a)
+    // {
+    //     printf("stack_a->content %d ==> index[%d]\n", *(stack_a->content), stack_a->index);
+    //     stack_a = stack_a->next;
+    // }
+    // printf("count ==> %d", count);
     return (count);
 }
