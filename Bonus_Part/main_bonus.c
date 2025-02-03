@@ -41,83 +41,113 @@ int is_sorted(t_list *stack)
     return 1;
 }
 
-void process_commands(t_list **stack_a, t_list **stack_b, int *count)
+void ft_strcmplist(char *str, t_list a, t_list **b)
 {
-    char *line;
+    int i;
 
-    line = NULL;
-    while ((line = get_next_line(0)) != NULL)
+    i = 0;
+    while (str[i])
     {
-        if (line[0] == '\n')
-        {
-            free(line);
-            continue;
-        }
-        if (ft_strcmp(line, "sa\n") == 0)
-            swap(stack_a, count);
-        else if (ft_strcmp(line, "sb\n") == 0)
-            swap(stack_b, count);
-        else if (ft_strcmp(line, "pa\n") == 0)
-            push(stack_a, stack_b, count);
-        else if (ft_strcmp(line, "pb\n") == 0)
-            push(stack_a, stack_b, count);
-        else if (ft_strcmp(line, "ra\n") == 0)
-            rotate(stack_a, count);
-        else if (ft_strcmp(line, "rb\n") == 0)
-            rotate(stack_b, count);
-        else if (ft_strcmp(line, "rra\n") == 0)
-            reverse_rotate(stack_a, count);
-        else if (ft_strcmp(line, "rrb\n") == 0)
-            reverse_rotate(stack_b, count);
-        else
-        {
-            write(1, "Error\n", 6);
-            free(line);
-            exit(1);
-        }
-        free(line);
+        ft_compare(str[i], a, b);
+        i++;
     }
 }
 
+void ft_check_str(char new_str, charrst, t_list **a)
+{
+    if (!rst)
+        free_leak(new_str, rst, a);
+}
+
+void help_me(char rst, t_list **a)
+{
+    t_list *current;
+    int i;
+
+    i = 0;
+    current = NULL;
+    if (!rst)
+    {
+        while (a)
+        {
+            current = (a)->next;
+            if ((a)->index != i)
+            {
+                write(1, "KO\n", 3);
+                ft_lstclear(a);
+                exit(1);
+            }
+            free(*a);
+            *a = current;
+            i++;
+        }
+        write(1, "OK\n", 3);
+        return;
+    }
+}
+
+static void free_leak(char str, char new_str, t_list *a)
+{
+    write(1, "Error\n", 6);
+    get_next_line(-1);
+    ft_lstclear(a);
+    if (new_str)
+        free(new_str);
+    free(str);
+    exit(1);
+}
+
+int read_line(t_list a, t_list b)
+{
+    char rst;
+    char temp;
+    char new_str;
+    char **str;
+
+    new_str = NULL;
+    rst = get_next_line(0);
+    if (!rst)
+        help_me(rst, a);
+    while (rst)
+    {
+        ft_check_str(new_str, rst, a);
+        temp = ft_strjoin(new_str, rst);
+        free(new_str);
+        new_str = temp;
+        free(rst);
+        rst = get_next_line(0);
+    }
+    str = ft_split(new_str, '\n');
+    if (!str)
+        return (ft_lstclear(a), 1);
+    ft_strcmplist(str, a, b);
+    free(new_str);
+    return (ft_freestr(str), 0);
+}
 int main(int argc, char **argv)
 {
-    char **split;
-    t_list *stack_a = NULL;
-    t_list *stack_b = NULL;
-    int i;
-    int count = 0;
+    t_list *stack_a;;
+    t_list *stack_b;
+    int len;
 
-    if (argc < 2)
+    stack_a = NULL;
+    stack_b = NULL;
+    if (argc == 1)
+        return (0);
+    if (init_stack(argc, argv, &stack_a) == 1)
         return (1);
-    i = 0;
-    while (argv[i] != NULL)
+    len = ft_size_liste(stack_a);
+    if (check_duplicate(stack_a) == 0)
     {
-        split = ft_split(argv[i], ' ');
-        i++;
+        ft_lstclear(stack_a);
+        write(2, "Error\n", 6);
+        return (1);
     }
-    i = 0;
-    while (split[i])
-    {
-        if ((is_valid_number(split[i]) == 0))
-        {
-            while (split[i])
-                free(split[i++]);
-            return (write(1, "Error\n", 6), free(split), 1);
-        }
-        i++;
-    }
-    i = 1;
-    while (i < argc)
-    {
-        add_node(&stack_a, ft_atoi(argv[i]));
-        i++;
-    }
-    process_commands(&stack_a, &stack_b, &count);
-    if (is_sorted(stack_a))
-        write(1, "OK\n", 3);
-    else
-        write(1, "KO\n", 3);
-    free(stack_a);
-    free(stack_b);
+    ft_index_by_content(stack_a);
+    if (read_line(&stack_a, &stack_b) == 1)
+        return (1);
+    check_sort(stack_a, &len);
+    if (stack_b)
+        ft_lstclear(stack_b);
     return (0);
 }
