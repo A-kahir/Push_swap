@@ -3,7 +3,6 @@
 #include <unistd.h>
 #include <string.h>
 
-// Define the linked list structure
 typedef struct s_list {
     int content;
     int index;
@@ -30,7 +29,7 @@ void add_node(t_list **stack, int content)
     *stack = node;
 }
 
-// Function to swap the first two elements in a stack
+// Swap the first two elements of the stack
 void swap(t_list **stack)
 {
     t_list *first;
@@ -46,7 +45,14 @@ void swap(t_list **stack)
     *stack = second;
 }
 
-// Function to rotate the stack
+// Swap the first two elements of both stacks
+void swap_both(t_list **stack_a, t_list **stack_b)
+{
+    swap(stack_a);
+    swap(stack_b);
+}
+
+// Rotate the stack (move top element to bottom)
 void rotate(t_list **stack)
 {
     t_list *first;
@@ -64,7 +70,14 @@ void rotate(t_list **stack)
     last->next = first;
 }
 
-// Function to reverse rotate the stack
+// Rotate both stacks
+void rotate_both(t_list **stack_a, t_list **stack_b)
+{
+    rotate(stack_a);
+    rotate(stack_b);
+}
+
+// Reverse rotate the stack (move bottom element to top)
 void reverse_rotate(t_list **stack)
 {
     t_list *second_last;
@@ -82,7 +95,14 @@ void reverse_rotate(t_list **stack)
     *stack = last;
 }
 
-// Function to push the top element from one stack to another
+// Reverse rotate both stacks
+void reverse_rotate_both(t_list **stack_a, t_list **stack_b)
+{
+    reverse_rotate(stack_a);
+    reverse_rotate(stack_b);
+}
+
+// Push the top element from one stack to another
 void push(t_list **from, t_list **to)
 {
     t_list *tmp;
@@ -96,7 +116,7 @@ void push(t_list **from, t_list **to)
     *to = tmp;
 }
 
-// Function to check if the stack is sorted in ascending order
+// Check if the stack is sorted in ascending order
 int is_sorted(t_list *stack)
 {
     while (stack && stack->next)
@@ -108,7 +128,7 @@ int is_sorted(t_list *stack)
     return 1;
 }
 
-// Function to free the stack memory
+// Free the stack memory
 void free_stack(t_list *stack)
 {
     t_list *tmp;
@@ -121,29 +141,18 @@ void free_stack(t_list *stack)
     }
 }
 
-// Function to initialize the stack with input from argv (correct order)
+// Initialize the stack with input from argv
 int init_stack(int argc, char **argv, t_list **stack)
 {
     int i;
     int content;
 
-    for (i = argc - 1; i > 0; i--) // Iterate from last argument
+    for (i = argc - 1; i > 0; i--)
     {
         content = atoi(argv[i]);
         add_node(stack, content);
     }
     return 0;
-}
-
-// Function to print the stack (for debugging)
-void print_stack(t_list *stack)
-{
-    while (stack)
-    {
-        printf("%d ", stack->content);
-        stack = stack->next;
-    }
-    printf("\n");
 }
 
 int main(int argc, char **argv)
@@ -156,31 +165,37 @@ int main(int argc, char **argv)
 
     if (argc == 1)
         return 0;
-
-    // Initialize the stack with input arguments
+    
     if (init_stack(argc, argv, &stack_a) == 1)
         return 1;
 
-    // Print the initial stack for debugging
-    printf("Initial stack: ");
-    print_stack(stack_a);
-
-    // Continuously read commands until EOF (Ctrl + D)
     while ((read = getline(&line, &len, stdin)) != -1)
     {
-        // Remove newline at the end of the command string
         if (line[read - 1] == '\n')
             line[read - 1] = '\0';
 
-        // Perform the appropriate operation based on the command
         if (strncmp(line, "sa", 2) == 0)
             swap(&stack_a);
+        else if (strncmp(line, "sb", 2) == 0)
+            swap(&stack_b);
+        else if (strncmp(line, "ss", 2) == 0)
+            swap_both(&stack_a, &stack_b);
         else if (strncmp(line, "ra", 2) == 0)
             rotate(&stack_a);
+        else if (strncmp(line, "rb", 2) == 0)
+            rotate(&stack_b);
+        else if (strncmp(line, "rr", 2) == 0)
+            rotate_both(&stack_a, &stack_b);
         else if (strncmp(line, "rra", 3) == 0)
             reverse_rotate(&stack_a);
+        else if (strncmp(line, "rrb", 3) == 0)
+            reverse_rotate(&stack_b);
+        else if (strncmp(line, "rrr", 3) == 0)
+            reverse_rotate_both(&stack_a, &stack_b);
         else if (strncmp(line, "pa", 2) == 0)
             push(&stack_b, &stack_a);
+        else if (strncmp(line, "pb", 2) == 0)
+            push(&stack_a, &stack_b);
         else
         {
             write(2, "Error\n", 6);
@@ -189,13 +204,8 @@ int main(int argc, char **argv)
             free_stack(stack_b);
             return 1;
         }
-
-        // Print the stack after each operation for debugging
-        printf("Current stack: ");
-        print_stack(stack_a);
     }
 
-    // After reading all commands, check if the stack is sorted
     if (is_sorted(stack_a))
         write(1, "OK\n", 3);
     else
