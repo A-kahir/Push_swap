@@ -6,7 +6,7 @@
 /*   By: akahir <akahir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 15:58:27 by akahir            #+#    #+#             */
-/*   Updated: 2025/02/03 20:47:19 by akahir           ###   ########.fr       */
+/*   Updated: 2025/02/05 14:16:15 by akahir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ void ft_if_4(t_list *stack_a, t_list *stack_b, int *count)
     int c;
     int d;
 
-    if (stack_a->next->next->next->next != NULL)
-        return;
     a = *(int *)(stack_a->content);
     b = *(int *)(stack_a->next->content);
     c = *(int *)(stack_a->next->next->content);
@@ -87,7 +85,6 @@ void ft_if_5(t_list *stack_a, t_list *stack_b, int *count)
     b = *(int *)(stack_a->next->content);
     c = *(int *)(stack_a->next->next->content);
     d = *(int *)(stack_a->next->next->next->content);
-    // e = *(int *)(stack_a->next->next->next->next->content);
     
     if (a == 0)
         push(&stack_a, &stack_b, "pb", count);
@@ -108,7 +105,6 @@ void ft_if_5(t_list *stack_a, t_list *stack_b, int *count)
         reverse_rotate(&stack_a, "rra", count);
         push(&stack_a, &stack_b, "pb", count);
     }
-    
     if (a == 1)
         push(&stack_a, &stack_b, "pb", count);
     else if (b == 1)
@@ -128,12 +124,9 @@ void ft_if_5(t_list *stack_a, t_list *stack_b, int *count)
         reverse_rotate(&stack_a, "rra", count);
         push(&stack_a, &stack_b, "pb", count);
     }
-    
     ft_if_3(stack_a, count);
-    
     if (stack_b && stack_b->next && *(int *)(stack_b->content) > *(int *)(stack_b->next->content))
         swap(&stack_b, "sb", count);
-    
     push(&stack_b, &stack_a, "pa", count);
     push(&stack_b, &stack_a, "pa", count);
 }

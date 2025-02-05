@@ -6,7 +6,7 @@
 /*   By: akahir <akahir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 17:26:11 by akahir            #+#    #+#             */
-/*   Updated: 2025/02/03 20:50:38 by akahir           ###   ########.fr       */
+/*   Updated: 2025/02/05 16:51:46 by akahir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,38 @@ int spaces_and_tabs(char *arg)
     while (start <= end)
         *dest++ = *start++;
     *dest = '\0';
+    return (1);
+}
+
+int ft_sign(t_list *stack_a)
+{
+    t_list *temp = stack_a;
+
+    while (temp)
+    {
+        int *content = temp->content;
+        
+        if (*content == '+' || *content == '-')
+        {
+            if (*content == '+' || *content == '-') 
+                return 1;
+        }
+        temp = temp->next;
+    }
+    return 0;
+}
+
+int ft_already_sorted(t_list *stack_a)
+{
+    t_list *temp = stack_a;
+
+    if (!temp)
+        return (1);
+    while (temp->next)
+    {
+        if (*(int *)(temp->content) > *(int *)(temp->next->content))
+            return (0);
+        temp = temp->next;
+    }
     return (1);
 }

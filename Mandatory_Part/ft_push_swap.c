@@ -6,7 +6,7 @@
 /*   By: akahir <akahir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 16:09:31 by akahir            #+#    #+#             */
-/*   Updated: 2025/02/03 15:06:27 by akahir           ###   ########.fr       */
+/*   Updated: 2025/02/05 15:29:59 by akahir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void ft_push_chunks(t_list **stack_a, t_list **stack_b, int chunk_size, int *cou
             push(stack_a, stack_b, "pb", count);
             i++;
         }
-        else if ((*stack_a)->index <= (i + chunk_size))
+        else if ((*stack_a)->index < (i + chunk_size))
         {
             push(stack_a, stack_b, "pb", count);
             rotate(stack_b, "rb", count);
