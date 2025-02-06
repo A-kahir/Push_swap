@@ -6,7 +6,7 @@
 /*   By: akahir <akahir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 16:09:31 by akahir            #+#    #+#             */
-/*   Updated: 2025/02/05 15:29:59 by akahir           ###   ########.fr       */
+/*   Updated: 2025/02/06 18:10:51 by akahir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void ft_push_swap(t_list **stack_a, t_list **stack_b, int *count)
     
     ft_indexing(*stack_a);
     size = stack_size(*stack_a);
-    if (size < 100)
+    if (size <= 100)
         chunk_size = 16;
     else
         chunk_size = 32;

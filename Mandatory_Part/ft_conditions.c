@@ -6,7 +6,7 @@
 /*   By: akahir <akahir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 17:26:11 by akahir            #+#    #+#             */
-/*   Updated: 2025/02/05 16:51:46 by akahir           ###   ########.fr       */
+/*   Updated: 2025/02/06 17:39:58 by akahir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,16 +76,15 @@ int ft_sign(t_list *stack_a)
     {
         int *content = temp->content;
         
-        if (*content == '+' || *content == '-')
+        if (*content == ' ')
         {
-            if (*content == '+' || *content == '-') 
-                return 1;
+            return 1;
         }
         temp = temp->next;
     }
+
     return 0;
 }
-
 int ft_already_sorted(t_list *stack_a)
 {
     t_list *temp = stack_a;
