@@ -18,9 +18,9 @@ void ft_if_3(t_list *stack_a, int *count)
     int b;
     int c;
 
-    a = *(int *)(stack_a->content);
-    b = *(int *)(stack_a->next->content);
-    c = *(int *)(stack_a->next->next->content);
+    a = *(stack_a->content);
+    b = *(stack_a->next->content);
+    c = *(stack_a->next->next->content);
     if (a > b && b < c && a < c)
         swap(&stack_a, "sa", count);
     else if (a > b && b > c)
@@ -38,94 +38,73 @@ void ft_if_3(t_list *stack_a, int *count)
         rotate(&stack_a, "ra", count);
     }
 }
-
 void ft_if_4(t_list *stack_a, t_list *stack_b, int *count)
 {
-    int a;
-    int b;
-    int c;
-    int d;
+    int min;
+    t_list *temp;
 
-    a = *(int *)(stack_a->content);
-    b = *(int *)(stack_a->next->content);
-    c = *(int *)(stack_a->next->next->content);
-    d = *(int *)(stack_a->next->next->next->content);
-    if (a == 0)
-        push(&stack_a, &stack_b, "pb", count);
-    else if (b == 0)
+    min = *(stack_a->content);
+    temp = stack_a;
+    while (temp)
     {
-        swap(&stack_a, "sa", count);
-        push(&stack_a, &stack_b, "pb", count);
+        if (*(temp->content) < min)
+            min = *(temp->content);
+        temp = temp->next;
     }
-    else if (c == 0)
+    while (*(stack_a->content) != min)
     {
-        rotate(&stack_a, "ra", count);
-        rotate(&stack_a, "ra", count);
-        push(&stack_a, &stack_b, "pb", count);
+        if (*(stack_a->next->content) == min)
+            swap(&stack_a, "sa", count);
+        else if (*(stack_a->next->next->content) == min)
+        {
+            rotate(&stack_a, "ra", count);
+            rotate(&stack_a, "ra", count);
+        }
+        else
+            reverse_rotate(&stack_a, "rra", count);
     }
-    else if (d == 0)
-    {
-        reverse_rotate(&stack_a, "rra", count);
-        push(&stack_a, &stack_b, "pb", count);
-    }
+    push(&stack_a, &stack_b, "pb", count);
     ft_if_3(stack_a, count);
     push(&stack_b, &stack_a, "pa", count);
 }
 
 void ft_if_5(t_list *stack_a, t_list *stack_b, int *count)
 {
-    int a;
-    int b;
-    int c;
-    int d;
-    
-    if (stack_a->next->next->next->next->next != NULL)
-        return;
-    a = *(int *)(stack_a->content);
-    b = *(int *)(stack_a->next->content);
-    c = *(int *)(stack_a->next->next->content);
-    d = *(int *)(stack_a->next->next->next->content);
-    
-    if (a == 0)
-        push(&stack_a, &stack_b, "pb", count);
-    else if (b == 0)
+    int min;
+    t_list *temp;
+
+    for (int i = 0; i < 2; i++)
     {
-        swap(&stack_a, "sa", count);
-        push(&stack_a, &stack_b, "pb", count);
-    }
-    else if (c == 0)
-    {
-        rotate(&stack_a, "ra", count);
-        rotate(&stack_a, "ra", count);
-        push(&stack_a, &stack_b, "pb", count);
-    }
-    else if (d == 0)
-    {
-        reverse_rotate(&stack_a, "rra", count);
-        reverse_rotate(&stack_a, "rra", count);
-        push(&stack_a, &stack_b, "pb", count);
-    }
-    if (a == 1)
-        push(&stack_a, &stack_b, "pb", count);
-    else if (b == 1)
-    {
-        swap(&stack_a, "sa", count);
-        push(&stack_a, &stack_b, "pb", count);
-    }
-    else if (c == 1)
-    {
-        rotate(&stack_a, "ra", count);
-        rotate(&stack_a, "ra", count);
-        push(&stack_a, &stack_b, "pb", count);
-    }
-    else if (d == 1)
-    {
-        reverse_rotate(&stack_a, "rra", count);
-        reverse_rotate(&stack_a, "rra", count);
+        min = *(stack_a->content);
+        temp = stack_a;
+        while (temp)
+        {
+            if (*(temp->content) < min)
+                min = *(temp->content);
+            temp = temp->next;
+        }
+        while (*(stack_a->content) != min)
+        {
+            if (*(stack_a->next->content) == min)
+                swap(&stack_a, "sa", count);
+            else if (*(stack_a->next->next->content) == min)
+            {
+                rotate(&stack_a, "ra", count);
+                rotate(&stack_a, "ra", count);
+            }
+            else if (*(stack_a->next->next->next->content) == min)
+            {
+                reverse_rotate(&stack_a, "rra", count);
+                reverse_rotate(&stack_a, "rra", count);
+            }
+            else
+                rotate(&stack_a, "ra", count);
+        }
         push(&stack_a, &stack_b, "pb", count);
     }
     ft_if_3(stack_a, count);
-    if (stack_b && stack_b->next && *(int *)(stack_b->content) > *(int *)(stack_b->next->content))
+    if (stack_b && stack_b->next && 
+        *(stack_b->content) < *(stack_b->next->content))
         swap(&stack_b, "sb", count);
     push(&stack_b, &stack_a, "pa", count);
     push(&stack_b, &stack_a, "pa", count);

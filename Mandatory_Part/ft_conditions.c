@@ -12,15 +12,26 @@
 
 #include "ft_push_swap.h"
 
+int ft_isdigit(char c)
+{
+    return (c >= '0' && c <= '9');
+}
+
 int is_valid_number(char *str)
 {
     if (!str || *str == '\0')
         return (0);
-    if (*str == '-' || *str == '+')
+    
+    if ((*str == '-' || *str == '+'))
+    {
+        if (!ft_isdigit(*(str + 1)))  // Check next character properly
+            return (0);
         str++;
+    }
+    
     while (*str)
     {
-        if (*str < '0' || *str > '9')
+        if (!ft_isdigit(*str))
             return (0);
         str++;
     }
