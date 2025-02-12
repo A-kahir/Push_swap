@@ -63,9 +63,7 @@ static t_list *process_arg(char *arg, t_list *stack)
     t_list  *new_stack;
 
     if (spaces_and_tabs(arg) == 0)
-    {
         return (NULL);
-    }
     split = ft_split(arg, ' ');
     if (!split)
         return (NULL);

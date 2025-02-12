@@ -21,8 +21,13 @@ typedef struct s_list
 //bonus functions :
 int main(int argc, char **argv);
 
-//utils functions :
+//conditions functions :
 int is_sorted(t_list *stack);
+int	is_valid_number(char *str);
+int	ft_double_nb(t_list *stack_a);
+int ft_sign(t_list *stack_a);
+int spaces_and_tabs(char *arg);
+int ft_already_sorted(t_list *stack_a);
 
 //rules functions :
 void	swap(t_list **stack, int *count);
@@ -35,6 +40,10 @@ void	reverse_rotate_both(t_list **stack_a, t_list **stack_b, int *count);
 
 //helper functions :
 char	*get_next_line(int fd);
+char	*ft_strdup(char *s1);
+char	*ft_strjoin(char *s1, char *s2);
+size_t	ft_strlen(char *str);
+char	*ft_strchr(const char *s, int c);
 int	ft_atoi(char *str);
 int ft_strcmp(const char *s1, const char *s2);
 void free_stack(t_list *stack);

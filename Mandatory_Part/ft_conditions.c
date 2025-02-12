@@ -24,11 +24,10 @@ int is_valid_number(char *str)
     
     if ((*str == '-' || *str == '+'))
     {
-        if (!ft_isdigit(*(str + 1)))  // Check next character properly
+        if (!ft_isdigit(*(str + 1)))
             return (0);
         str++;
     }
-    
     while (*str)
     {
         if (!ft_isdigit(*str))
@@ -93,8 +92,7 @@ int ft_sign(t_list *stack_a)
         }
         temp = temp->next;
     }
-
-    return 0;
+    return (0);
 }
 int ft_already_sorted(t_list *stack_a)
 {

@@ -3,7 +3,7 @@
 
 #include "ft_push_swap_bonus.h"
 
-int execute_instruction(char *instruction, t_list **stack_a, t_list **stack_b, int *count)
+static int execute_instruction(char *instruction, t_list **stack_a, t_list **stack_b, int *count)
 {
     if (!ft_strcmp(instruction, "sa\n"))
         swap(stack_a, count);
@@ -42,10 +42,12 @@ int main(int argc, char **argv)
     t_list *new_node;
 
     if (argc < 2)
-        return 1;
+        return (1);
     i = 1;
     while (i < argc)
     {
+        if ((is_valid_number(argv[i]) == 0) || (spaces_and_tabs(argv[i]) == 0))
+            return (write(2, "Error\n", 6), 1);
         new_node = create_node(ft_atoi(argv[i]));
         if (!new_node)
             return (free_stack(stack_a), 1);
@@ -60,16 +62,20 @@ int main(int argc, char **argv)
         }
         i++;
     }
+    if ((ft_double_nb(stack_a) == 1) || (ft_sign(stack_a) == 1))
+        return (write(2, "Error\n", 6), free_stack(stack_a), 1);
+    if (ft_already_sorted(stack_a))
+        return (write(1, "OK\n", 3), free_stack(stack_a), 0);
     while ((instruction = get_next_line(0)))
     {
         if (!execute_instruction(instruction, &stack_a, &stack_b, &count))
-            return (write(2, "Error\n", 6), free(instruction), free_stack(stack_a), free_stack(stack_b), 1);
+            return (write(2, "Error\n", 6), free(instruction), 
+                    free_stack(stack_a), free_stack(stack_b), 1);
         free(instruction);
     }
     if (is_sorted(stack_a) && !stack_b)
         write(1, "OK\n", 3);
     else
         write(1, "KO\n", 3);
-    free_stack(stack_a);
-    free_stack(stack_b);
+    return (free_stack(stack_a), free_stack(stack_b), 0);
 }
