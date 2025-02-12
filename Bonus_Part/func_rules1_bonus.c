@@ -1,16 +1,7 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   func_rules1_bonus.c                                :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: akahir <akahir@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/03 15:38:47 by akahir            #+#    #+#             */
-/*   Updated: 2025/02/03 21:40:00 by akahir           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+
 
 #include "ft_push_swap_bonus.h"
+
 
 void swap(t_list **stack, int *count)
 {
@@ -31,7 +22,7 @@ void swap(t_list **stack, int *count)
 void swap_both(t_list **stack_a, t_list **stack_b, int *count)
 {
     swap(stack_a, count);
-    swap(stack_b,count);
+    swap(stack_b, count);
     (*count)++;
 }
 
