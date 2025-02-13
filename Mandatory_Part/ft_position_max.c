@@ -14,9 +14,15 @@
 
 int ft_position_max(t_list *stack)
 {
-    int max = *(stack->content);
-    int pos = 0, max_pos = 0;
-    t_list *list = stack;
+    int max;
+    int pos;
+    int max_pos;
+    t_list *list;
+    
+    max = *(stack->content);
+    pos = 0;
+    max_pos = 0;
+    list = stack;
     while (list)
     {
         if (*(list->content) > max)

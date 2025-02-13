@@ -36,10 +36,12 @@ static t_list  *add_node(t_list *stack, int number)
     temp->next = new_node;
     return (stack);
 }
+
 static t_list *continue_process_arg(char **split, t_list *new_stack)
 {
-    int i = 0;
+    int i;
 
+    i = 0;
     while (split[i])
     {
         new_stack = add_node(new_stack, ft_atoi(split[i]));
@@ -65,9 +67,7 @@ static t_list *process_arg(char *arg, t_list *stack)
     if (spaces_and_tabs(arg) == 0)
         return (NULL);
     split = ft_split(arg, ' ');
-    if (!split)
-        return (NULL);
-    if (!split[0])
+    if (!split || !split[0])
         return (free(split), NULL);
     i = 0;
     while (split[i])
@@ -76,8 +76,7 @@ static t_list *process_arg(char *arg, t_list *stack)
         {
             while (split[i])
                 free(split[i++]);
-            free(split);
-            return (NULL);
+            return (free(split), NULL);
         }
         i++;
     }
@@ -85,9 +84,7 @@ static t_list *process_arg(char *arg, t_list *stack)
     i = 0;
     while (split[i])
         free(split[i++]);
-    free(split);
-
-    return (new_stack);
+    return (free(split), new_stack);
 }
 
 

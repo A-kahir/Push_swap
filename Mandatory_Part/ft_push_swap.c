@@ -17,9 +17,10 @@ static void ft_indexing(t_list *stack_a)
     t_list *current;
     t_list *min_node;
     int i;
-    int list_size = stack_size(stack_a);
+    int list_size;
 
     i = 0;
+    list_size = stack_size(stack_a);
     while (i < list_size) 
     {
         min_node = NULL;
@@ -39,25 +40,7 @@ static void ft_indexing(t_list *stack_a)
     }
 }
 
-int ft_pos_max(t_list *stack)
-{
-    int max = *(stack->content);
-    int pos = 0, max_pos = 0;
-    t_list *list = stack;
-    while (list)
-    {
-        if (*(list->content) > max)
-        {
-            max = *(list->content);
-            max_pos = pos;
-        }
-        list = list->next;
-        pos++;
-    }
-    return (max_pos);
-}
-
-void ft_sort_more(t_list **stack_a, t_list **stack_b, int *count)
+static void ft_sort_more(t_list **stack_a, t_list **stack_b, int *count)
 {
     int max_pos;
     int len;
@@ -70,10 +53,11 @@ void ft_sort_more(t_list **stack_a, t_list **stack_b, int *count)
     }   
 }
 
-void ft_push_chunks(t_list **stack_a, t_list **stack_b, int chunk_size, int *count)
+static void ft_push_chunks(t_list **stack_a, t_list **stack_b, int chunk_size, int *count)
 {
-    int i = 0;
+    int i;
 
+    i = 0;
     while (*stack_a)
     {
         if ((*stack_a)->index <= i)

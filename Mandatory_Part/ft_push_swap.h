@@ -42,7 +42,6 @@ void	reverse_rotate_both(t_list **stack_a, t_list **stack_b, int *count);
 //conditions functions:
 int	is_valid_number(char *str);
 int	ft_double_nb(t_list *stack_a);
-int ft_sign(t_list *stack_a);
 int spaces_and_tabs(char *arg);
 int ft_already_sorted(t_list *stack_a);
 void    ft_if_3(t_list *stack_a, int *count);
