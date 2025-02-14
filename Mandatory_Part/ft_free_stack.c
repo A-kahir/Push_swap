@@ -6,21 +6,21 @@
 /*   By: akahir <akahir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:08:40 by akahir            #+#    #+#             */
-/*   Updated: 2025/02/03 15:09:08 by akahir           ###   ########.fr       */
+/*   Updated: 2025/02/14 19:01:50 by akahir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_push_swap.h"
 
-void    free_stack(t_list *stack)
+void	free_stack(t_list *stack)
 {
-    t_list *temp;
+	t_list	*temp;
 
-    while (stack)
-    {
-        temp = stack->next;
-        free(stack->content);
-        free(stack);
-        stack = temp;
-    }
+	while (stack)
+	{
+		temp = stack->next;
+		free(stack->content);
+		free(stack);
+		stack = temp;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: akahir <akahir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 18:50:02 by akahir            #+#    #+#             */
-/*   Updated: 2025/01/30 18:15:53 by akahir           ###   ########.fr       */
+/*   Updated: 2025/02/14 19:12:48 by akahir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	ft_atoi(char *str)
 {
-	int	i;
-	int	sign;
+	int		i;
+	int		sign;
 	long	result;
 
 	i = 0;

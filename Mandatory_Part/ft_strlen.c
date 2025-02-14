@@ -6,20 +6,20 @@
 /*   By: akahir <akahir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 15:57:13 by akahir            #+#    #+#             */
-/*   Updated: 2025/02/05 14:07:12 by akahir           ###   ########.fr       */
+/*   Updated: 2025/02/14 16:51:41 by akahir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_push_swap.h"
 
-int ft_strlen(const char *str)
+int	ft_strlen(const char *str)
 {
-    int count;
-    
-    count = 0;
-    while (str[count] != '\0')
-    {
-        count++;
-    }
-    return (count);
+	int	count;
+
+	count = 0;
+	while (str[count] != '\0')
+	{
+		count++;
+	}
+	return (count);
 }
