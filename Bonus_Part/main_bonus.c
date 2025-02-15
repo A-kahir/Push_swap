@@ -14,32 +14,35 @@
 
 static	int	exe_instr(char *instr, t_list **stk_a, t_list **stk_b, int *count)
 {
-	if (!ft_strcmp(instr, "sa\n"))
+	if (instr && instr[ft_strlen(instr) - 1] == '\n')
+		instr[ft_strlen(instr) - 1] = '\0';
+	if (!ft_strcmp(instr, "sa"))
 		swap(stk_a, count);
-	else if (!ft_strcmp(instr, "sb\n"))
+	else if (!ft_strcmp(instr, "sb"))
 		swap(stk_b, count);
-	else if (!ft_strcmp(instr, "ss\n"))
+	else if (!ft_strcmp(instr, "ss"))
 		swap_both(stk_a, stk_b, count);
-	else if (!ft_strcmp(instr, "pa\n"))
+	else if (!ft_strcmp(instr, "pa"))
 		push(stk_b, stk_a, count);
-	else if (!ft_strcmp(instr, "pb\n"))
+	else if (!ft_strcmp(instr, "pb"))
 		push(stk_a, stk_b, count);
-	else if (!ft_strcmp(instr, "ra\n"))
+	else if (!ft_strcmp(instr, "ra"))
 		rotate(stk_a, count);
-	else if (!ft_strcmp(instr, "rb\n"))
+	else if (!ft_strcmp(instr, "rb"))
 		rotate(stk_b, count);
-	else if (!ft_strcmp(instr, "rr\n"))
+	else if (!ft_strcmp(instr, "rr"))
 		rotate_both(stk_a, stk_b, count);
-	else if (!ft_strcmp(instr, "rra\n"))
+	else if (!ft_strcmp(instr, "rra"))
 		reverse_rotate(stk_a, count);
-	else if (!ft_strcmp(instr, "rrb\n"))
+	else if (!ft_strcmp(instr, "rrb"))
 		reverse_rotate(stk_b, count);
-	else if (!ft_strcmp(instr, "rrr\n"))
+	else if (!ft_strcmp(instr, "rrr"))
 		reverse_rotate_both(stk_a, stk_b, count);
 	else
 		return (0);
 	return (1);
 }
+
 
 static	int	initialize_stack(int argc, char **argv, t_list **stack_a)
 {
@@ -78,26 +81,38 @@ static	void	last_result(t_list *stack_a, t_list *stack_b)
 		write(1, "KO\n", 3);
 }
 
-static	int	ft_read( t_list *stack_a, t_list *stack_b, int count)
+static int	ft_read(char **rules)
 {
 	char	*instruction;
+	char	*temp;
+	char	*store;
 
+	store = ft_strdup("");
+	if (!store)
+		return (write(2, "Error\n", 6), 1);
 	instruction = get_next_line(0);
 	while (instruction)
 	{
-		if (!exe_instr(instruction, &stack_a, &stack_b, &count))
-			return (write(2, "Error\n", 6), free(instruction),
-				free_stack(stack_a), free_stack(stack_b), 1);
+		temp = store;
+		store = ft_strjoin(store, instruction);
+		free(temp);
 		free(instruction);
+		if (!store)
+			return (write(2, "Error\n", 6), 1);
 		instruction = get_next_line(0);
 	}
+	*rules = store;
 	return (0);
 }
+
 
 int	main(int argc, char **argv)
 {
 	t_list	*stack_a;
 	t_list	*stack_b;
+	char	*rules;
+	char	**instructions;
+	int		i;
 	int		count;
 
 	if (argc < 2)
@@ -108,10 +123,24 @@ int	main(int argc, char **argv)
 		return (1);
 	if ((ft_double_nb(stack_a) == 1))
 		return (write(2, "Error\n", 6), free_stack(stack_a), 1);
-	if (ft_already_sorted(stack_a))
-		return (write(1, "OK\n", 3), free_stack(stack_a), 1);
-	if (ft_read(stack_a, stack_b, count))
-		return (free_stack(stack_a), free_stack(stack_b), 1);
+	if (ft_read(&rules))
+		return (free_stack(stack_a), 1);
+	instructions = ft_split(rules, '\n');
+	free(rules);
+	if (!instructions)
+		return (write(2, "Error\n", 6), free_stack(stack_a), 1);
+	i = 0;
+	while (instructions[i])
+	{
+		if (!exe_instr(instructions[i], &stack_a, &stack_b, &count))
+		{
+			free(instructions[i]);
+			continue;
+		}
+		free(instructions[i]);
+		i++;
+	}
+	free(instructions);
 	last_result(stack_a, stack_b);
 	return (free_stack(stack_a), free_stack(stack_b), 0);
 }

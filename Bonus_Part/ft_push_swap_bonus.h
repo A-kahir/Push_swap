@@ -58,5 +58,6 @@ int		ft_atoi(char *str);
 int		ft_strcmp(const char *s1, const char *s2);
 void	free_stack(t_list *stack);
 t_list	*create_node(int content);
+char	**ft_split(const char *s, char c);
 
 #endif
