@@ -36,7 +36,6 @@ int		main(int argc, char **argv);
 int		is_sorted(t_list *stack);
 int		is_valid_number(char *str);
 int		ft_double_nb(t_list *stack_a);
-int		ft_sign(t_list *stack_a);
 int		spaces_and_tabs(char *arg);
 int		ft_already_sorted(t_list *stack_a);
 

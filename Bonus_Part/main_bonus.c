@@ -70,11 +70,34 @@ static	int	initialize_stack(int argc, char **argv, t_list **stack_a)
 	return (0);
 }
 
+static	void	last_result(t_list *stack_a, t_list *stack_b)
+{
+	if (is_sorted(stack_a) && !stack_b)
+		write(1, "OK\n", 3);
+	else
+		write(1, "KO\n", 3);
+}
+
+static	int	ft_read( t_list *stack_a, t_list *stack_b, int count)
+{
+	char	*instruction;
+
+	instruction = get_next_line(0);
+	while (instruction)
+	{
+		if (!exe_instr(instruction, &stack_a, &stack_b, &count))
+			return (write(2, "Error\n", 6), free(instruction),
+				free_stack(stack_a), free_stack(stack_b), 1);
+		free(instruction);
+		instruction = get_next_line(0);
+	}
+	return (0);
+}
+
 int	main(int argc, char **argv)
 {
 	t_list	*stack_a;
 	t_list	*stack_b;
-	char	*instruction;
 	int		count;
 
 	if (argc < 2)
@@ -83,20 +106,12 @@ int	main(int argc, char **argv)
 	count = 0;
 	if (initialize_stack(argc, argv, &stack_a))
 		return (1);
-	if ((ft_double_nb(stack_a) == 1) || (ft_sign(stack_a) == 1))
+	if ((ft_double_nb(stack_a) == 1))
 		return (write(2, "Error\n", 6), free_stack(stack_a), 1);
 	if (ft_already_sorted(stack_a))
-		return (write(1, "OK\n", 3), free_stack(stack_a), 0);
-	while (instruction = get_next_line(0))
-	{
-		if (!exe_instr(instruction, &stack_a, &stack_b, &count))
-			return (write(2, "Error\n", 6), free(instruction),
-				free_stack(stack_a), free_stack(stack_b), 1);
-		free(instruction);
-	}
-	if (is_sorted(stack_a) && !stack_b)
-		write(1, "OK\n", 3);
-	else
-		write(1, "KO\n", 3);
+		return (write(1, "OK\n", 3), free_stack(stack_a), 1);
+	if (ft_read(stack_a, stack_b, count))
+		return (free_stack(stack_a), free_stack(stack_b), 1);
+	last_result(stack_a, stack_b);
 	return (free_stack(stack_a), free_stack(stack_b), 0);
 }

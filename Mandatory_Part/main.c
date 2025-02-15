@@ -6,7 +6,7 @@
 /*   By: akahir <akahir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 18:19:19 by akahir            #+#    #+#             */
-/*   Updated: 2025/02/14 19:30:18 by akahir           ###   ########.fr       */
+/*   Updated: 2025/02/15 14:25:44 by akahir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,5 +122,6 @@ int	main(int argc, char **argv)
 	stack_b = NULL;
 	count = 0;
 	ft_push_swap(&stack_a, &stack_b, &count);
+	printf("count=> %d", count);
 	return (count);
 }
