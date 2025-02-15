@@ -105,6 +105,27 @@ static int	ft_read(char **rules)
 	return (0);
 }
 
+static	void	ex_inst(char **instructions, t_list **stack_a, t_list **stack_b, int *count)
+{
+	int i;
+
+	i = 0;
+	while (instructions[i])
+	{
+		if (!exe_instr(instructions[i], stack_a, stack_b, count))
+		{
+			write(2, "Error\n", 6);
+			free(instructions[i]);
+			free(instructions);
+			free_stack(*stack_a);
+			free_stack(*stack_b);
+			exit(1);
+		}
+		free(instructions[i]);
+		i++;
+	}
+}
+
 
 int	main(int argc, char **argv)
 {
@@ -112,7 +133,6 @@ int	main(int argc, char **argv)
 	t_list	*stack_b;
 	char	*rules;
 	char	**instructions;
-	int		i;
 	int		count;
 
 	if (argc < 2)
@@ -129,17 +149,7 @@ int	main(int argc, char **argv)
 	free(rules);
 	if (!instructions)
 		return (write(2, "Error\n", 6), free_stack(stack_a), 1);
-	i = 0;
-	while (instructions[i])
-	{
-		if (!exe_instr(instructions[i], &stack_a, &stack_b, &count))
-		{
-			free(instructions[i]);
-			continue;
-		}
-		free(instructions[i]);
-		i++;
-	}
+	ex_inst(instructions, &stack_a, &stack_b, &count);
 	free(instructions);
 	last_result(stack_a, stack_b);
 	return (free_stack(stack_a), free_stack(stack_b), 0);
