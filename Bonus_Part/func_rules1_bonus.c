@@ -12,7 +12,7 @@
 
 #include "ft_push_swap_bonus.h"
 
-void	swap(t_list **stack, int *count)
+void	swap(t_list **stack)
 {
 	t_list	*first;
 	t_list	*second;
@@ -24,17 +24,15 @@ void	swap(t_list **stack, int *count)
 	first->next = second->next;
 	second->next = first;
 	*stack = second;
-	(*count)++;
 }
 
-void	swap_both(t_list **stack_a, t_list **stack_b, int *count)
+void	swap_both(t_list **stack_a, t_list **stack_b)
 {
-	swap(stack_a, count);
-	swap(stack_b, count);
-	(*count)++;
+	swap(stack_a);
+	swap(stack_b);
 }
 
-void	push(t_list **from, t_list **to, int *count)
+void	push(t_list **from, t_list **to)
 {
 	t_list	*temp;
 
@@ -44,5 +42,4 @@ void	push(t_list **from, t_list **to, int *count)
 	*from = (*from)->next;
 	temp->next = *to;
 	*to = temp;
-	(*count)++;
 }

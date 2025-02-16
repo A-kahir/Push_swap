@@ -12,7 +12,7 @@
 
 #include "ft_push_swap_bonus.h"
 
-void	rotate(t_list **stack, int *count)
+void	rotate(t_list **stack)
 {
 	t_list	*first;
 	t_list	*last;
@@ -26,17 +26,15 @@ void	rotate(t_list **stack, int *count)
 	while (last->next != NULL)
 		last = last->next;
 	last->next = first;
-	(*count)++;
 }
 
-void	rotate_both(t_list **stack_a, t_list **stack_b, int *count)
+void	rotate_both(t_list **stack_a, t_list **stack_b)
 {
-	rotate(stack_a, count);
-	rotate(stack_b, count);
-	(*count)++;
+	rotate(stack_a);
+	rotate(stack_b);
 }
 
-void	reverse_rotate(t_list **stack, int *count)
+void	reverse_rotate(t_list **stack)
 {
 	t_list	*last;
 	t_list	*second_last;
@@ -50,12 +48,10 @@ void	reverse_rotate(t_list **stack, int *count)
 	second_last->next = NULL;
 	last->next = *stack;
 	*stack = last;
-	(*count)++;
 }
 
-void	reverse_rotate_both(t_list **stack_a, t_list **stack_b, int *count)
+void	reverse_rotate_both(t_list **stack_a, t_list **stack_b)
 {
-	reverse_rotate(stack_a, count);
-	reverse_rotate(stack_b, count);
-	(*count)++;
+	reverse_rotate(stack_a);
+	reverse_rotate(stack_b);
 }

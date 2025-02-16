@@ -31,6 +31,8 @@ typedef struct s_list
 
 //bonus functions :
 int		main(int argc, char **argv);
+void	ex_inst(char **instructions, t_list **stack_a, t_list **stack_b);
+int		exe_instr(char *instr, t_list **stk_a, t_list **stk_b);
 
 //conditions functions :
 int		is_sorted(t_list *stack);
@@ -40,13 +42,13 @@ int		spaces_and_tabs(char *arg);
 int		ft_already_sorted(t_list *stack_a);
 
 //rules functions :
-void	swap(t_list **stack, int *count);
-void	swap_both(t_list **stack_a, t_list **stack_b, int *count);
-void	push(t_list **from, t_list **to, int *count);
-void	rotate(t_list **stack, int *count);
-void	rotate_both(t_list **stack_a, t_list **stack_b, int *count);
-void	reverse_rotate(t_list **stack, int *count);
-void	reverse_rotate_both(t_list **stack_a, t_list **stack_b, int *count);
+void	swap(t_list **stack);
+void	swap_both(t_list **stack_a, t_list **stack_b);
+void	push(t_list **from, t_list **to);
+void	rotate(t_list **stack);
+void	rotate_both(t_list **stack_a, t_list **stack_b);
+void	reverse_rotate(t_list **stack);
+void	reverse_rotate_both(t_list **stack_a, t_list **stack_b);
 
 //helper functions :
 char	*get_next_line(int fd);

@@ -11,7 +11,7 @@ SRCB = Bonus_Part/main_bonus.c Bonus_Part/get_next_line.c \
        Bonus_Part/get_next_line_utils.c Bonus_Part/ft_atoi_bonus.c \
 	   Bonus_Part/func_rules1_bonus.c Bonus_Part/ft_conditions_bonus.c \
 	   Bonus_Part/helper_func.c Bonus_Part/func_rules2_bonus.c\
-	   Bonus_Part/ft_split_bonus.c 
+	   Bonus_Part/ft_split_bonus.c Bonus_Part/execute_instructions.c 
 
 OBJS = $(SRCS:.c=.o)
 OBJB = $(SRCB:.c=.o)
@@ -46,4 +46,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all bonus clean fclean re
+.PHONY: clean
