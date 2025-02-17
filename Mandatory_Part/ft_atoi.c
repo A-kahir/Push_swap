@@ -6,7 +6,7 @@
 /*   By: akahir <akahir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 18:50:02 by akahir            #+#    #+#             */
-/*   Updated: 2025/02/14 19:12:48 by akahir           ###   ########.fr       */
+/*   Updated: 2025/02/17 17:14:35 by akahir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,11 @@ int	ft_atoi(char *str)
 			sign *= -1;
 		i++;
 	}
-	if (str[i] < '0' || str[i] > '9')
-		return (0);
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		result = result * 10 + (str[i] - '0');
-		if ((result * sign) > INT_MAX || (result * sign) < INT_MIN)
+		if ((sign == 1 && (result * sign) > 2147483647)
+			|| (sign == -1 && (result * sign) < -2147483648))
 			return (0);
 		i++;
 	}

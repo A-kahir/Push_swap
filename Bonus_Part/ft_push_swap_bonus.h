@@ -32,7 +32,6 @@ typedef struct s_list
 //bonus functions :
 int		main(int argc, char **argv);
 void	ex_inst(char **instructions, t_list **stack_a, t_list **stack_b);
-int		exe_instr(char *instr, t_list **stk_a, t_list **stk_b);
 
 //conditions functions :
 int		is_sorted(t_list *stack);
@@ -61,5 +60,7 @@ int		ft_strcmp(const char *s1, const char *s2);
 void	free_stack(t_list *stack);
 t_list	*create_node(int content);
 char	**ft_split(const char *s, char c);
+void	free_split(char **split);
+int		is_valid_instruction(char *instr);
 
 #endif

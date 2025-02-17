@@ -27,12 +27,11 @@ int	ft_atoi(char *str)
 			sign *= -1;
 		i++;
 	}
-	if (str[i] < '0' || str[i] > '9')
-		return (0);
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		result = result * 10 + (str[i] - '0');
-		if ((result * sign) > INT_MAX || (result * sign) < INT_MIN)
+		if ((sign == 1 && (result * sign) > 2147483647)
+			|| (sign == -1 && (result * sign) < -2147483648))
 			return (0);
 		i++;
 	}

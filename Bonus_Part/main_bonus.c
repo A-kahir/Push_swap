@@ -16,26 +16,39 @@ static	int	initialize_stack(int argc, char **argv, t_list **stack_a)
 {
 	t_list	*new_node;
 	t_list	*last;
+	char	**split_args;
 	int		i;
+	int		j;
 
 	*stack_a = NULL;
 	i = 1;
 	while (i < argc)
 	{
-		if ((is_valid_number(argv[i]) == 0) || (spaces_and_tabs(argv[i]) == 0))
+		split_args = ft_split(argv[i], ' ');
+		if (!split_args || !split_args[0])
 			return (write(2, "Error\n", 6), 1);
-		new_node = create_node(ft_atoi(argv[i]));
-		if (!new_node)
-			return (free_stack(*stack_a), 1);
-		if (!*stack_a)
-			*stack_a = new_node;
-		else
+		j = 0;
+		while (split_args[j])
 		{
-			last = *stack_a;
-			while (last->next)
-				last = last->next;
-			last->next = new_node;
+			if ((spaces_and_tabs(split_args[j]) == 0))
+				return (write(2, "Error\n", 6), free_split(split_args), 1);
+			if (is_valid_number(split_args[j]) == 0)
+				return (write(2, "Error\n", 6), free_split(split_args), 1);
+			new_node = create_node(ft_atoi(split_args[j]));
+			if (!new_node)
+				return (free_stack(*stack_a), free_split(split_args), 1);
+			if (!*stack_a)
+				*stack_a = new_node;
+			else
+			{
+				last = *stack_a;
+				while (last->next)
+					last = last->next;
+				last->next = new_node;
+			}
+			j++;
 		}
+		free_split(split_args);
 		i++;
 	}
 	return (0);
@@ -61,6 +74,8 @@ static int	ft_read(char **rules)
 	instruction = get_next_line(0);
 	while (instruction)
 	{
+		if ((instruction[0] == '\n') || (!is_valid_instruction(instruction)))
+			return (write(2, "Error\n", 6), free(instruction), free(store), 1);
 		temp = store;
 		store = ft_strjoin(store, instruction);
 		free(temp);
@@ -91,8 +106,6 @@ int	main(int argc, char **argv)
 		return (free_stack(stack_a), 1);
 	instructions = ft_split(rules, '\n');
 	free(rules);
-	if (!instructions)
-		return (write(2, "Error\n", 6), free_stack(stack_a), 1);
 	ex_inst(instructions, &stack_a, &stack_b);
 	free(instructions);
 	last_result(stack_a, stack_b);

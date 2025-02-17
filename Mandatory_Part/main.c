@@ -6,13 +6,13 @@
 /*   By: akahir <akahir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 18:19:19 by akahir            #+#    #+#             */
-/*   Updated: 2025/02/15 14:25:44 by akahir           ###   ########.fr       */
+/*   Updated: 2025/02/17 16:22:32 by akahir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_push_swap.h"
 
-static	t_list	*add_node(t_list *stack, int number)
+static t_list	*add_node(t_list *stack, int number)
 {
 	t_list	*new_node;
 	t_list	*temp;
@@ -56,7 +56,7 @@ static	t_list	*continue_process_arg(char **split, t_list *new_stack)
 	return (new_stack);
 }
 
-static	t_list	*process_arg(char *arg, t_list *stack)
+static t_list	*process_arg(char *arg, t_list *stack)
 {
 	char	**split;
 	int		i;
@@ -66,29 +66,27 @@ static	t_list	*process_arg(char *arg, t_list *stack)
 		return (NULL);
 	split = ft_split(arg, ' ');
 	if (!split || !split[0])
-		return (free(split), NULL);
+		return (free_split(split), NULL);
 	i = 0;
 	while (split[i])
 	{
 		if ((is_valid_number(split[i]) == 0))
 		{
-			while (split[i])
-				free(split[i++]);
-			return (free(split), NULL);
+			free_split(split);
+			return (NULL);
 		}
 		i++;
 	}
 	new_stack = continue_process_arg(split, stack);
-	i = 0;
-	while (split[i])
-		free(split[i++]);
-	return (free(split), new_stack);
+	free_split(split);
+	return (new_stack);
 }
 
-static	t_list	*parse_arguments(int argc, char **argv)
+static t_list	*parse_arguments(int argc, char **argv)
 {
 	t_list	*stack_a;
 	int		i;
+	t_list	*temp;
 
 	if (argc < 2)
 		return (NULL);
@@ -96,9 +94,13 @@ static	t_list	*parse_arguments(int argc, char **argv)
 	i = 1;
 	while (i < argc)
 	{
-		stack_a = process_arg(argv[i], stack_a);
-		if (!stack_a)
-			return (free_stack(stack_a), NULL);
+		temp = process_arg(argv[i], stack_a);
+		if (!temp)
+		{
+			free_stack(stack_a);
+			return (NULL);
+		}
+		stack_a = temp;
 		i++;
 	}
 	return (stack_a);
@@ -116,12 +118,19 @@ int	main(int argc, char **argv)
 	if (!stack_a)
 		return (write(1, "Error\n", 6), 1);
 	if ((ft_double_nb(stack_a) == 1))
-		return (write(1, "Error\n", 6), free(stack_a), 1);
+	{
+		free_stack(stack_a);
+		return (write(1, "Error\n", 6), 1);
+	}
 	if (ft_already_sorted(stack_a) == 1)
-		return (1);
+	{
+		free_stack(stack_a);
+		return (0);
+	}
 	stack_b = NULL;
 	count = 0;
 	ft_push_swap(&stack_a, &stack_b, &count);
-	printf("count=> %d", count);
+	free_stack(stack_a);
+	free_stack(stack_b);
 	return (count);
 }

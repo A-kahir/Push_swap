@@ -6,7 +6,7 @@
 /*   By: akahir <akahir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 16:09:31 by akahir            #+#    #+#             */
-/*   Updated: 2025/02/14 19:25:37 by akahir           ###   ########.fr       */
+/*   Updated: 2025/02/17 12:28:59 by akahir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,11 +91,11 @@ void	ft_push_swap(t_list **stack_a, t_list **stack_b, int *count)
 			return (swap(stack_a, "sa", count));
 	}
 	if (size == 3)
-		ft_if_3(*stack_a, count);
+		ft_if_3(stack_a, count);
 	else if (size == 4)
-		ft_if_4(*stack_a, *stack_b, count);
+		ft_if_4(stack_a, stack_b, count);
 	else if (size == 5)
-		ft_if_5(*stack_a, *stack_b, count);
+		ft_if_5(stack_a, stack_b, count);
 	else if (size > 5)
 	{
 		chunk(stack_a, stack_b, size_ch, count);
