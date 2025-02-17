@@ -31,6 +31,7 @@ typedef struct s_list
 
 //bonus functions :
 int		main(int argc, char **argv);
+int		initialize_stack(int argc, char **argv, t_list **stack_a);
 void	ex_inst(char **instructions, t_list **stack_a, t_list **stack_b);
 
 //conditions functions :
