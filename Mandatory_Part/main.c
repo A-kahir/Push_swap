@@ -6,7 +6,7 @@
 /*   By: akahir <akahir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 18:19:19 by akahir            #+#    #+#             */
-/*   Updated: 2025/02/18 12:08:54 by akahir           ###   ########.fr       */
+/*   Updated: 2025/02/18 12:25:46 by akahir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,11 +116,11 @@ int	main(int argc, char **argv)
 		return (1);
 	stack_a = parse_arguments(argc, argv);
 	if (!stack_a)
-		return (write(1, "Error\n", 6), 1);
+		return (write(2, "Error\n", 6), 1);
 	if ((ft_double_nb(stack_a) == 1))
 	{
 		free_stack(stack_a);
-		return (write(1, "Error\n", 6), 1);
+		return (write(2, "Error\n", 6), 1);
 	}
 	if (ft_already_sorted(stack_a) == 1)
 	{
