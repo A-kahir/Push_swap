@@ -6,11 +6,21 @@
 /*   By: akahir <akahir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 18:50:02 by akahir            #+#    #+#             */
-/*   Updated: 2025/02/17 17:14:35 by akahir           ###   ########.fr       */
+/*   Updated: 2025/02/18 20:36:32 by akahir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_push_swap.h"
+
+static	void	check_overflow(int sign, long result)
+{
+	if ((sign == 1 && (result * sign) > 2147483647)
+		|| (sign == -1 && (result * sign) < -2147483648))
+	{
+		write(2, "Error\n", 6);
+		exit(1);
+	}
+}
 
 int	ft_atoi(char *str)
 {
@@ -30,9 +40,7 @@ int	ft_atoi(char *str)
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		result = result * 10 + (str[i] - '0');
-		if ((sign == 1 && (result * sign) > 2147483647)
-			|| (sign == -1 && (result * sign) < -2147483648))
-			return (0);
+		check_overflow(sign, result);
 		i++;
 	}
 	if (str[i] != '\0')

@@ -6,7 +6,7 @@
 /*   By: akahir <akahir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 18:19:19 by akahir            #+#    #+#             */
-/*   Updated: 2025/02/18 12:25:46 by akahir           ###   ########.fr       */
+/*   Updated: 2025/02/27 14:10:51 by akahir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,9 @@ static t_list	*process_arg(char *arg, t_list *stack)
 	if (spaces_and_tabs(arg) == 0)
 		return (NULL);
 	split = ft_split(arg, ' ');
-	if (!split || !split[0])
+	if (!split)
+		exit(1);
+	else if (!split[0])
 		return (free_split(split), NULL);
 	i = 0;
 	while (split[i])
@@ -118,15 +120,9 @@ int	main(int argc, char **argv)
 	if (!stack_a)
 		return (write(2, "Error\n", 6), 1);
 	if ((ft_double_nb(stack_a) == 1))
-	{
-		free_stack(stack_a);
-		return (write(2, "Error\n", 6), 1);
-	}
+		return (free_stack(stack_a), write(2, "Error\n", 6), 1);
 	if (ft_already_sorted(stack_a) == 1)
-	{
-		free_stack(stack_a);
-		return (0);
-	}
+		return (free_stack(stack_a), 1);
 	stack_b = NULL;
 	count = 0;
 	ft_push_swap(&stack_a, &stack_b, &count);

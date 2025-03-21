@@ -6,7 +6,7 @@
 /*   By: akahir <akahir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 15:58:27 by akahir            #+#    #+#             */
-/*   Updated: 2025/02/17 12:32:54 by akahir           ###   ########.fr       */
+/*   Updated: 2025/02/24 13:48:35 by akahir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ void	ft_if_3(t_list **stack_a, int *count)
 		swap(stack_a, "sa", count);
 	else if (a > b && b > c)
 	{
+		rotate(stack_a, "ra", count);
 		swap(stack_a, "sa", count);
-		reverse_rotate(stack_a, "rra", count);
 	}
 	else if (a > c && b < c)
 		rotate(stack_a, "ra", count);
 	else if (a < b && b > c && a > c)
 		reverse_rotate(stack_a, "rra", count);
-	else if (a > b && b < c && a > c)
+	else if ((a < b && b > c && a < c) || (a > b && b < c && a > c))
 	{
 		swap(stack_a, "sa", count);
 		rotate(stack_a, "ra", count);
@@ -55,20 +55,44 @@ void	move_min_to_top(t_list **stack_a, int min, int *count)
 	}
 }
 
-void	ft_if_4(t_list **stack_a, t_list **stack_b, int *count)
+static	int	find_min_pos(t_list **stack)
 {
-	int		min;
 	t_list	*temp;
+	int		min;
+	int		min_pos;
+	int		i;
 
-	temp = *stack_a;
+	temp = *stack;
 	min = *(temp->content);
+	min_pos = 0;
+	i = 0;
 	while (temp)
 	{
 		if (*(temp->content) < min)
+		{
 			min = *(temp->content);
+			min_pos = i;
+		}
 		temp = temp->next;
+		i++;
 	}
-	move_min_to_top(stack_a, min, count);
+	return (min_pos);
+}
+
+void	ft_if_4(t_list **stack_a, t_list **stack_b, int *count)
+{
+	int	min_pos;
+
+	min_pos = find_min_pos(stack_a);
+	if (min_pos == 1)
+		swap(stack_a, "sa", count);
+	else if (min_pos == 2)
+	{
+		rotate(stack_a, "ra", count);
+		rotate(stack_a, "ra", count);
+	}
+	else if (min_pos == 3)
+		reverse_rotate(stack_a, "rra", count);
 	push(stack_a, stack_b, "pb", count);
 	ft_if_3(stack_a, count);
 	push(stack_b, stack_a, "pa", count);

@@ -6,17 +6,15 @@
 /*   By: akahir <akahir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 18:15:40 by akahir            #+#    #+#             */
-/*   Updated: 2025/02/17 12:29:11 by akahir           ###   ########.fr       */
+/*   Updated: 2025/02/27 14:23:33 by akahir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PUSH_SWAP_H
 # define FT_PUSH_SWAP_H
 
-# include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
-# include <limits.h>
 
 typedef struct s_list
 {

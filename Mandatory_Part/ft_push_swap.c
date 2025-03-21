@@ -6,7 +6,7 @@
 /*   By: akahir <akahir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 16:09:31 by akahir            #+#    #+#             */
-/*   Updated: 2025/02/17 12:28:59 by akahir           ###   ########.fr       */
+/*   Updated: 2025/02/23 13:20:23 by akahir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	ft_push_swap(t_list **stack_a, t_list **stack_b, int *count)
 	if (size <= 100)
 		size_ch = 16;
 	else
-		size_ch = 32;
+		size_ch = 36;
 	if (size == 2)
 	{
 		if (*((*stack_a)->content) > *((*stack_a)->next->content))
