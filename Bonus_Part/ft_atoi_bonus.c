@@ -12,6 +12,16 @@
 
 #include "ft_push_swap_bonus.h"
 
+static	void	check_overflow(int sign, long result)
+{
+	if ((sign == 1 && (result * sign) > 2147483647)
+		|| (sign == -1 && (result * sign) < -2147483648))
+	{
+		write(2, "Error\n", 6);
+		exit(1);
+	}
+}
+
 int	ft_atoi(char *str)
 {
 	int		i;
@@ -30,9 +40,7 @@ int	ft_atoi(char *str)
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		result = result * 10 + (str[i] - '0');
-		if ((sign == 1 && (result * sign) > 2147483647)
-			|| (sign == -1 && (result * sign) < -2147483648))
-			return (0);
+		check_overflow(sign, result);
 		i++;
 	}
 	if (str[i] != '\0')

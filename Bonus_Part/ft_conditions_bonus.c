@@ -24,13 +24,13 @@ int	is_valid_number(char *str)
 	if ((*str == '-' || *str == '+'))
 	{
 		if (!ft_isdigit(*(str + 1)))
-			return (0);
+			return (write(2, "Error\n", 6), exit(1), 0);
 		str++;
 	}
 	while (*str)
 	{
 		if (!ft_isdigit(*str))
-			return (0);
+			return (write(2, "Error\n", 6), exit(1), 0);
 		str++;
 	}
 	return (1);

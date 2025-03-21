@@ -28,11 +28,6 @@ int	is_valid_instruction(char *instr)
 
 static	int	cantinue_exe(char *instr, t_list **stk_a, t_list **stk_b)
 {
-	char	*newline;
-
-	newline = ft_strchr(instr, '\n');
-	if (newline)
-		*newline = '\0';
 	if (!ft_strcmp(instr, "ra"))
 		rotate(stk_a);
 	else if (!ft_strcmp(instr, "rb"))
@@ -52,11 +47,6 @@ static	int	cantinue_exe(char *instr, t_list **stk_a, t_list **stk_b)
 
 int	exe_instr(char *instr, t_list **stk_a, t_list **stk_b)
 {
-	char	*newline;
-
-	newline = ft_strchr(instr, '\n');
-	if (newline)
-		*newline = '\0';
 	if (!ft_strcmp(instr, "sa"))
 		swap(stk_a);
 	else if (!ft_strcmp(instr, "sb"))

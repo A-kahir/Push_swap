@@ -13,10 +13,8 @@
 #ifndef FT_PUSH_SWAP_BONUS_H
 # define FT_PUSH_SWAP_BONUS_H
 
-# include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
-# include <limits.h>
 
 typedef struct s_list
 {
